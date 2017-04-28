@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments::head"/>
+
+<body ng-app="app" ng-controller="MyController as vm" ng-init="vm.getAll()">
+
+<header th:replace="fragments::header"/>
+<div>
+    <nav th:replace="fragments::navigation"/>
+
+
+    <div>
+        <div class="col-lg-offset-2 col-lg-8">
+            <!-- Get all bookings or only affordable ones -->
+            <div class="row">
+                <button type="button" class="btn pull-right btn-primary" ng-click="vm.showForm()">Add Feature</button>
+            </div>
+
+            <span th:text="${message}"/>
+
+            <div class="form-group col-lg-3">
+                <label>Filter:</label>
+                <input type="text" name="filter" ng-model="vm.filter" class="form-control col-lg-3"
+                       ng-change="vm.getAll()"/>
+            </div>
+
+
+            <!-- Display bookings in a table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Container</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="feature in vm.features">
+                    <td>{{feature.name}}</td>
+                    <td>{{feature.value}}</td>
+                    <td>{{feature.container.name}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="vm.deleteFeature(feature.id)">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

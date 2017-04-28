@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:include="fragments::head"/>
+
+<body>
+<header th:replace="fragments::header"/>
+<nav th:replace="fragments::navigation"/>
+<div class="container center-block text-center">
+
+    <div class="row">
+        <h1>Container</h1>
+    </div>
+
+    <div class="row">
+        <p th:unless=" ${containers} and ${containers.size()}">No containers</p>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="cont : ${containers}" th:text="${cont.name}"
+                th:value="${cont.id}"></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

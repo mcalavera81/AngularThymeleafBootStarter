@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments :: head"/>
+
+<body>
+
+
+<header th:replace="fragments::header"/>
+<nav th:replace="fragments::navigation"/>
+<div class="container">
+    <h1 th:text="${form_title}">Default Title</h1>
+    <form method="POST" class="simple-form"
+          th:action="@{/feature/create}" th:object="${featureForm}">
+
+        <ul th:if="${#fields.hasErrors('global')}" class="alert-danger">
+            <li th:each="err : ${#fields.errors('global')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+
+        <div class="form-group">
+            <label th:for="name">Name: </label>
+            <input class="form-control" type="text" th:field="*{name}"/>
+            <span th:errors="*{name}" class="alert-danger"/>
+        </div>
+        <div class="form-group">
+            <label th:for="value">Value</label>
+            <div class="radio">
+                <label>
+                    <input class="form-control" type="radio" th:field="*{value}" value="vi">vi</input>
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input class="form-control" type="radio" th:field="*{value}" value="emacs">emacs</input>
+                </label>
+            </div>
+            <span th:errors="*{value}" class="alert-danger"/>
+        </div>
+
+
+        <div class="form-check form-group">
+            <select class="form-control" ng-model="form.feature.container.id" th:field="*{containerId}">
+                <option id="" value="" th:checked="true">Please Select</option>
+                <option th:each="container : ${containers}" th:value="${container.id}"
+                        th:text="${container.name}"/>
+            </select>
+            <span th:errors="*{containerId}" class="alert-danger"/>
+        </div>
+
+
+        <button type="reset">Reset</button>
+        <button type="submit">Save</button>
+
+    </form>
+</div>
+</body>
+</html>
